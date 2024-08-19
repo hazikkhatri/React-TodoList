@@ -14,7 +14,7 @@ function App() {
   }
 
   const handleEdit = (e, id) => {
-    let t = todos.filter(item => item.id === id)
+    let t = todos.find(item => item.id === id)
     setTodo(t.todo)
     let newTodos = todos.filter(item => item.id !== id)
     setTodos(newTodos)
