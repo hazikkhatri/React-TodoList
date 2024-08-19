@@ -6,41 +6,29 @@ function App() {
   const [todo, setTodo] = useState("")
   const [todos, setTodos] = useState([])
 
-  useEffect(() => {
-    let todoString = localStorage.getItem("todos")
-    if (todoString) {
-      let todos = JSON.parse(localStorage.getItem("todos"))
-      setTodos(todos)
-    }
-  }, [])
-
   const handleAdd = () => {
-    setTodos([...todos, { id: uuidv4(), todo, isCompleted: false }])
+    const newTodos = [...todos, { id: uuidv4(), todo, isCompleted: false }];
+    setTodos(newTodos)
     setTodo("")
-    console.log(todos)
-    saveToLS()
+    saveToLS(newTodos)
   }
 
   const handleEdit = (e, id) => {
-    let t = todos.filter(item => item.id == id)
-    setTodo(t[0].todo)
-    let newTodos = todos.filter(item => {
-      return item.id !== id
-    })
+    let t = todos.filter(item => item.id === id)
+    setTodo(t.todo)
+    let newTodos = todos.filter(item => item.id !== id)
     setTodos(newTodos)
-    saveToLS()
+    saveToLS(newTodos)
   }
 
   const handleDelete = (e, id) => {
-    let newTodos = todos.filter(item => {
-      return item.id !== id
-    })
+    let newTodos = todos.filter(item => item.id !== id)
     setTodos(newTodos)
-    saveToLS()
+    saveToLS(newTodos)
   }
 
-  const saveToLS = (params) => {
-    localStorage.setItem("todos", JSON.stringify(todos))
+  const saveToLS = (updatedTodos) => {
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
   }
 
   const handleChange = (e) => {
@@ -49,16 +37,20 @@ function App() {
 
   const handleCheckBox = (e) => {
     let id = e.target.name
-    let index = todos.findIndex(item => {
-      return item.id === id;
-    })
+    let index = todos.findIndex(item => item.id === id)
     let newTodos = [...todos]
     newTodos[index].isCompleted = !newTodos[index].isCompleted
     setTodos(newTodos)
-    saveToLS()
+    saveToLS(newTodos)
   }
 
-
+  useEffect(() => {
+    let todoString = localStorage.getItem("todos")
+    if (todoString) {
+      let todos = JSON.parse(todoString)
+      setTodos(todos)
+    }
+  }, [])
 
   return (
     <>
@@ -76,7 +68,7 @@ function App() {
             return (
               <div key={item.id} className="todo text-black flex w-1/4 mb-2 justify-between p-1 items-center bg-violet-200">
                 <div className='flex items-center gap-3'>
-                  <input onChange={handleCheckBox} type="checkbox" value={item.isCompleted} name={item.id} />
+                  <input onChange={handleCheckBox} type="checkbox" checked={item.isCompleted} name={item.id} />
                   <div className={item.isCompleted ? "line-through" : ""}>{item.todo}</div>
                 </div>
                 <div className="buttons flex">
