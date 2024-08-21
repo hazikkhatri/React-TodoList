@@ -64,8 +64,10 @@ function App() {
       <div className="container mx-auto bg-violet-200 mt-4 rounded-md p-3 min-h-[80vh] w-max">
         <div className="AddTodo">
           <h2 className='text-2xl select-none font-medium'>Add a Todo</h2>
-          <input onChange={handleChange} value={todo} type="text" className='w-80 px-2 py-1 my-3 text-lg focus:outline-none' />
-          <button onClick={handleAdd} disabled={todo.length <= 3} className='bg-violet-500 text-white px-2 py-2 disabled:bg-violet-400 select-none disabled:cursor-not-allowed rounded ml-2'>Save</button>
+          <div className='flex items-center'>
+            <input onChange={handleChange} value={todo} type="text" className='w-80 px-2 py-1 my-3 text-lg focus:outline-none' />
+            <button onClick={handleAdd} disabled={todo.length <= 3} className='bg-violet-500 text-white px-2 py-2 disabled:bg-violet-400 select-none disabled:cursor-not-allowed rounded ml-2'>Save</button>
+          </div>
         </div>
         <h2 className='text-xl select-none mb-3 font-medium'>Your Todos:</h2>
         <input onChange={toggleFinished} type="checkbox" className='font-fold ml-1' checked={showFinished} /><span className='text-base ml-3 select-none'>Show Finished</span>
