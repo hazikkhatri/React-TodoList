@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 function App() {
   const [todo, setTodo] = useState("")
   const [todos, setTodos] = useState([])
+  const [showFinished, setshowFinished] = useState(true)
 
   const handleAdd = () => {
     const newTodos = [...todos, { id: uuidv4(), todo, isCompleted: false }];
@@ -12,6 +13,11 @@ function App() {
     setTodo("")
     saveToLS(newTodos)
   }
+
+  const toggleFinished = (params) => {
+    setshowFinished(!showFinished)
+  }
+
 
   const handleEdit = (e, id) => {
     let t = todos.find(item => item.id === id)
@@ -55,28 +61,27 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto bg-violet-200 mt-4 rounded-md p-3 min-h-[80vh]">
+      <div className="container mx-auto bg-violet-200 mt-4 rounded-md p-3 min-h-[80vh] w-max">
         <div className="AddTodo">
-          <h2 className='text-2xl font-medium'>Add a Todo</h2>
+          <h2 className='text-2xl select-none font-medium'>Add a Todo</h2>
           <input onChange={handleChange} value={todo} type="text" className='w-80 px-2 py-1 my-3 text-lg focus:outline-none' />
-          <button onClick={handleAdd} className='bg-violet-500 text-white px-2 py-1 rounded ml-2'>Save</button>
+          <button onClick={handleAdd} disabled={todo.length <= 3} className='bg-violet-500 text-white px-2 py-2 disabled:bg-violet-400 select-none disabled:cursor-not-allowed rounded ml-2'>Save</button>
         </div>
-        <h2 className='text-xl mb-3 font-medium'>Your Todos:</h2>
-        <div className="todos">
-          {todos.length === 0 && <div className='font-medium text-xl mt-4'>No todos to display</div>}
+        <h2 className='text-xl select-none mb-3 font-medium'>Your Todos:</h2>
+        <input onChange={toggleFinished} type="checkbox" className='font-fold ml-1' checked={showFinished} /><span className='text-base ml-3 select-none'>Show Finished</span>
+        <div className="todos mt-2">
+          {todos.length === 0 && <div className='font-medium text-xl select-none mt-4'>No todos to display</div>}
           {todos.map(item => {
-            return (
-              <div key={item.id} className="todo text-black flex w-1/4 mb-2 justify-between p-1 items-center bg-violet-200">
-                <div className='flex items-center gap-3'>
-                  <input onChange={handleCheckBox} type="checkbox" checked={item.isCompleted} name={item.id} />
-                  <div className={item.isCompleted ? "line-through" : ""}>{item.todo}</div>
-                </div>
-                <div className="buttons flex">
-                  <button onClick={(e) => { handleEdit(e, item.id) }} className='bg-violet-500 text-white px-2 py-1 rounded ml-2'>Edit</button>
-                  <button onClick={(e) => { handleDelete(e, item.id) }} className='bg-violet-500 text-white px-2 py-1 rounded ml-2'>Delete</button>
-                </div>
+            return (showFinished || !item.isCompleted) && <div key={item.id} className="todo text-black flex w-full mb-2 justify-between p-1 items-center bg-violet-200">
+              <div className='flex items-center gap-3'>
+                <input onChange={handleCheckBox} type="checkbox" checked={item.isCompleted} name={item.id} />
+                <div className={`${item.isCompleted ? "line-through" : ""} text-base`} >{item.todo}</div>
               </div>
-            )
+              <div className="buttons flex">
+                <button onClick={(e) => { handleEdit(e, item.id) }} className='bg-violet-500 text-white px-2 py-1 rounded ml-2'>Edit</button>
+                <button onClick={(e) => { handleDelete(e, item.id) }} className='bg-violet-500 text-white px-2 py-1 rounded ml-2'>Delete</button>
+              </div>
+            </div>
           })}
         </div>
       </div>
