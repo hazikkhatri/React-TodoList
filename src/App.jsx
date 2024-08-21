@@ -61,7 +61,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto bg-violet-200 mt-4 rounded-md p-3 min-h-[80vh] w-max">
+      <div className="container mx-auto bg-violet-200 mt-4 rounded-md p-3 min-h-[80vh] md:w-4/5 w-max">
         <div className="AddTodo">
           <h2 className='text-2xl select-none font-medium'>Add a Todo</h2>
           <div className='flex items-center'>
@@ -70,7 +70,7 @@ function App() {
           </div>
         </div>
         <h2 className='text-xl select-none mb-3 font-medium'>Your Todos:</h2>
-        <input onChange={toggleFinished} type="checkbox" className='font-fold ml-1' checked={showFinished} /><span className='text-base ml-3 select-none'>Show Finished</span>
+        <input onChange={toggleFinished} type="checkbox" className='font-fold ml-1' checked={showFinished} /><span className='text-base ml-3 select-none'>Show Finished Tasks</span>
         <div className="todos mt-2">
           {todos.length === 0 && <div className='font-medium text-xl select-none mt-4'>No todos to display</div>}
           {todos.map(item => {
