@@ -66,7 +66,7 @@ function App() {
           <h2 className='text-2xl select-none font-medium'>Add a Todo</h2>
           <div className='flex items-center'>
             <input onChange={handleChange} value={todo} type="text" className='w-80 px-2 py-1 my-3 text-lg focus:outline-none' />
-            <button onClick={handleAdd} disabled={todo.length <= 3} className='bg-violet-500 text-white px-2 py-2 disabled:bg-violet-400 select-none disabled:cursor-not-allowed rounded ml-2'>Save</button>
+            <button onClick={handleAdd} disabled={todo.length <= 3} className='bg-violet-500 text-white px-2 py-1 disabled:bg-violet-400 select-none disabled:cursor-not-allowed rounded ml-2'>Save</button>
           </div>
         </div>
         <h2 className='text-xl select-none mb-3 font-medium'>Your Todos:</h2>
@@ -74,7 +74,7 @@ function App() {
         <div className="todos mt-2">
           {todos.length === 0 && <div className='font-medium text-xl select-none mt-4'>No todos to display</div>}
           {todos.map(item => {
-            return (showFinished || !item.isCompleted) && <div key={item.id} className="todo text-black flex w-full mb-2 justify-between p-1 items-center bg-violet-200">
+            return (showFinished || !item.isCompleted) && <div key={item.id} className="todo text-black flex w-full md:w-1/3 mb-2 justify-between p-1 items-center bg-violet-200">
               <div className='flex items-center gap-3'>
                 <input onChange={handleCheckBox} type="checkbox" checked={item.isCompleted} name={item.id} />
                 <div className={`${item.isCompleted ? "line-through" : ""} text-base`} >{item.todo}</div>
