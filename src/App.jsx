@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
+import { MdEditSquare } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import { IoSaveSharp } from "react-icons/io5";
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
@@ -66,7 +69,7 @@ function App() {
           <h2 className='text-2xl select-none font-medium'>Add a Todo</h2>
           <div className='flex items-center'>
             <input onChange={handleChange} value={todo} type="text" className='w-80 px-2 py-1 my-3 text-lg focus:outline-none' />
-            <button onClick={handleAdd} disabled={todo.length <= 3} className='bg-violet-500 text-white px-2 py-1 disabled:bg-violet-400 select-none disabled:cursor-not-allowed rounded ml-2'>Save</button>
+            <button onClick={handleAdd} disabled={todo.length <= 3} className='bg-violet-500 text-white p-2 disabled:bg-violet-400 text-lg select-none disabled:cursor-not-allowed rounded ml-2'><IoSaveSharp /></button>
           </div>
         </div>
         <h2 className='text-xl select-none mb-3 font-medium'>Your Todos:</h2>
@@ -74,14 +77,14 @@ function App() {
         <div className="todos mt-2">
           {todos.length === 0 && <div className='font-medium text-xl select-none mt-4'>No todos to display</div>}
           {todos.map(item => {
-            return (showFinished || !item.isCompleted) && <div key={item.id} className="todo text-black flex w-full md:w-1/3 mb-2 justify-between p-1 items-center bg-violet-200">
+            return (showFinished || !item.isCompleted) && <div key={item.id} className="todo text-black flex w-full md:w-3/6 mb-2 justify-between p-1 items-center bg-violet-200">
               <div className='flex items-center gap-3'>
                 <input onChange={handleCheckBox} type="checkbox" checked={item.isCompleted} name={item.id} />
                 <div className={`${item.isCompleted ? "line-through" : ""} text-base`} >{item.todo}</div>
               </div>
               <div className="buttons flex">
-                <button onClick={(e) => { handleEdit(e, item.id) }} className='bg-violet-500 text-white px-2 py-1 rounded ml-2'>Edit</button>
-                <button onClick={(e) => { handleDelete(e, item.id) }} className='bg-violet-500 text-white px-2 py-1 rounded ml-2'>Delete</button>
+                <button onClick={(e) => { handleEdit(e, item.id) }} className='bg-violet-500 text-lg text-white px-2 py-1 rounded ml-2'><MdEditSquare /></button>
+                <button onClick={(e) => { handleDelete(e, item.id) }} className='bg-violet-500 text-white px-2 py-1 text-lg rounded ml-2'><MdDelete /></button>
               </div>
             </div>
           })}
