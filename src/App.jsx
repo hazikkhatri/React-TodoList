@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
 import { MdEditSquare } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { IoSaveSharp } from "react-icons/io5";
 import { v4 as uuidv4 } from 'uuid';
+import Navbar from './components/Navbar';
 
 function App() {
   const [todo, setTodo] = useState("")
@@ -64,7 +64,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto  bg-violet-200 mt-4 rounded-md p-3 min-h-[80vh] md:w-4/5 w-max">
+      <div className="container mx-auto  bg-violet-200 mt-4 rounded-md p-3 min-h-[80vh] md:w-4/5 sm:w-max">
         <div className="AddTodo">
           <h2 className='text-2xl select-none font-medium'>Add a Todo</h2>
           <div className='flex items-center'>
