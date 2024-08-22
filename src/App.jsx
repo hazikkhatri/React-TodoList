@@ -61,7 +61,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto bg-violet-200 mt-4 rounded-md p-3 min-h-[80vh] md:w-4/5 w-max">
+      <div className="container mx-auto  bg-violet-200 mt-4 rounded-md p-3 min-h-[80vh] md:w-4/5 w-max">
         <div className="AddTodo">
           <h2 className='text-2xl select-none font-medium'>Add a Todo</h2>
           <div className='flex items-center'>
